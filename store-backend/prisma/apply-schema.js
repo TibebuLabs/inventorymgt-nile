@@ -6,6 +6,12 @@
  */
 const { PrismaClient } = require('@prisma/client');
 
+// Skip if DATABASE_URL is not set (e.g., during initial Render build before env vars are configured)
+if (!process.env.DATABASE_URL) {
+  console.log('DATABASE_URL not set — skipping schema migration. Set it in Render dashboard and redeploy.');
+  process.exit(0);
+}
+
 const prisma = new PrismaClient();
 
 const STATEMENTS = [
