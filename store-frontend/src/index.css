@@ -1,0 +1,5 @@
+@import "tailwindcss";
+/* Smooth transitions for sidebar */
+.transform {
+  transition: transform 0.3s ease-in-out;
+}

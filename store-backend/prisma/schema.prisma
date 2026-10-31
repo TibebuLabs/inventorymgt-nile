@@ -1,0 +1,434 @@
+// ============================================================
+// Store Management System — Prisma Schema
+// Database: Supabase (PostgreSQL)
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Employee {
+  id               Int           @id @default(autoincrement())
+  full_name        String        @db.VarChar(100)
+  department_id    Int
+  email            String        @unique
+  phone            String?       @unique
+  password         String
+  role_id          Int
+  role             Role          @relation(fields: [role_id], references: [id])
+  department       Department    @relation(fields: [department_id], references: [id])
+  checked_by       Approvement[] @relation("ApprovementCheckedBy")
+  received_by      Approvement[] @relation("ApprovementReceivedBy")
+  prepared_by      Approvement[] @relation("ApprovementPreparedBy")
+  headed_department Department?  @relation("DepartmentHead")
+  notifications    Notification[]
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@map("employees")
+}
+
+model Department {
+  id                 Int        @id @default(autoincrement())
+  department_name    String
+  department_head_id Int?       @unique
+  department_head    Employee?  @relation("DepartmentHead", fields: [department_head_id], references: [id])
+  employees          Employee[]
+
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@map("departments")
+}
+
+model Grn {
+  id                     Int           @id @default(autoincrement())
+  date                   DateTime      @db.Date
+  supplier               String
+  suppliers_inv_other_no String
+  store_location         String
+  purchase_req_num       Int
+  purchase_order_num     Int
+  approvment_id          Int?
+  total_id               Int?          @unique
+  vendor_id              Int?
+  status                 String        @default("pending")
+  rejection_reason       String?
+  created_by_id          Int?
+  approved_by_id         Int?
+  approved_at            DateTime?
+  posted_at              DateTime?
+  approvement            Approvement?  @relation(fields: [approvment_id], references: [id])
+  vendor                 Vendor?       @relation(fields: [vendor_id], references: [id])
+  grn_items              GrnItem[]
+  referance_scc          ReferanceScc[]
+  total                  Total?        @relation(fields: [total_id], references: [id])
+  notifications          Notification[]
+
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  @@index([status])
+  @@map("grns")
+}
+
+model GrnItem {
+  id                  Int             @id @default(autoincrement())
+  grn_id              Int
+  ser_no              Int
+  description         Int
+  unit_measurement_id Int
+  unit_measurement    UnitMeasurement @relation(fields: [unit_measurement_id], references: [id])
+  qua_ordered         Int
+  qua_delivered       Int
+  quantity_received   Int
+  unit_price          Float
+  total_item_price    Float
+  remark              String
+  grn                 Grn             @relation(fields: [grn_id], references: [id], onDelete: Cascade)
+  item                Item            @relation(fields: [description], references: [id])
+
+  @@map("grn_items")
+}
+
+model Total {
+  id                  Int               @id @default(autoincrement())
+  total_price         Float
+  grn                 Grn?
+  srn                 Srn?
+  store_issue_voucher StoreIssueVoucher?
+
+  @@map("totals")
+}
+
+model Approvement {
+  id             Int       @id @default(autoincrement())
+  prepared_by_id Int?
+  checked_by_id  Int?
+  received_by_id Int?
+  prepared_by    Employee? @relation("ApprovementPreparedBy", fields: [prepared_by_id], references: [id])
+  checked_by     Employee? @relation("ApprovementCheckedBy", fields: [checked_by_id], references: [id])
+  received_by    Employee? @relation("ApprovementReceivedBy", fields: [received_by_id], references: [id])
+  grn            Grn[]
+  srn            Srn[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("approvements")
+}
+
+model Srn {
+  id                    Int          @id @default(autoincrement())
+  requisition_work_unit String
+  date                  DateTime     @db.Date
+  approvment_id         Int?
+  total_id              Int?         @unique
+  status                String       @default("pending")
+  rejection_reason      String?
+  requested_by_id       Int?
+  approved_by_id        Int?
+  approved_at           DateTime?
+  fulfilled_at          DateTime?
+  approvement           Approvement? @relation(fields: [approvment_id], references: [id])
+  srn_items             SrnItem[]
+  total                 Total?       @relation(fields: [total_id], references: [id])
+  notifications         Notification[]
+
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+
+  @@index([status])
+  @@map("srns")
+}
+
+model SrnItem {
+  id                  Int             @id @default(autoincrement())
+  srn_id              Int
+  serial_num          Int
+  description         String
+  unit_measurement_id Int
+  unit_measurement    UnitMeasurement @relation(fields: [unit_measurement_id], references: [id])
+  quantity            Int
+  remarks             String
+  srn                 Srn             @relation(fields: [srn_id], references: [id], onDelete: Cascade)
+  item                Item            @relation(fields: [description], references: [name])
+
+  @@map("srn_items")
+}
+
+model Scc {
+  id                Int            @id @default(autoincrement())
+  item              String         @unique
+  location_shelves_no String
+  max_stock_level   Int
+  min_stock_level   Int
+  item_details      Item           @relation(fields: [item], references: [name])
+  referance_scc     ReferanceScc[]
+
+  @@map("sccs")
+}
+
+model ReferanceScc {
+  id                  Int             @id @default(autoincrement())
+  scc_id              Int
+  date                DateTime        @db.Date
+  grn_id              Int?
+  iv_id               Int?
+  unit_measurement_id Int
+  unit_measurement    UnitMeasurement @relation(fields: [unit_measurement_id], references: [id])
+  stock_in_key        Int?
+  stock_out_key       Int?
+  stock_balance_key   Int?
+  scc                 Scc             @relation(fields: [scc_id], references: [id])
+  grn                 Grn?            @relation(fields: [grn_id], references: [id])
+  siv                 Siv?            @relation(fields: [iv_id], references: [id])
+  stock_in            StockIn[]
+  stock_out           StockOut[]
+  stock_balance       StockBalance[]
+
+  @@map("referance_sccs")
+}
+
+model StockIn {
+  id            Int          @id @default(autoincrement())
+  quantity      Int
+  ref_key       Int          @unique
+  unit_price    Float
+  total_price   Float
+  created_by_id Int?
+  referance_scc ReferanceScc @relation(fields: [ref_key], references: [id])
+
+  createdAt     DateTime     @default(now())
+
+  @@map("stock_ins")
+}
+
+model StockOut {
+  id            Int          @id @default(autoincrement())
+  quantity      Int
+  unit_price    Float
+  total_price   Float
+  ref_key       Int
+  created_by_id Int?
+  referance_scc ReferanceScc @relation(fields: [ref_key], references: [id])
+
+  createdAt     DateTime     @default(now())
+
+  @@map("stock_outs")
+}
+
+model StockBalance {
+  id                 Int          @id @default(autoincrement())
+  quantity           Int
+  unit_price         Float
+  total_price        Float
+  ref_key            Int
+  last_stock_balance Boolean      @default(true)
+  created_by_id      Int?
+  referance_scc      ReferanceScc @relation(fields: [ref_key], references: [id])
+
+  createdAt          DateTime     @default(now())
+
+  @@index([last_stock_balance])
+  @@map("stock_balances")
+}
+
+model Vendor {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  contact_name String?
+  email        String?
+  phone        String?
+  address      String?
+  tax_id       String?
+  notes        String?
+  is_active    Boolean  @default(true)
+  grns         Grn[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("vendors")
+}
+
+model AuditLog {
+  id            Int      @id @default(autoincrement())
+  employee_id   Int?
+  employee_name String?
+  role          String?
+  action        String
+  entity        String
+  entity_id     String?
+  description   String
+  metadata      Json?
+  method        String?
+  path          String?
+  ip            String?
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([entity, entity_id])
+  @@index([employee_id])
+
+  @@map("audit_logs")
+}
+
+model Siv {
+  id            Int            @id @default(autoincrement())
+  issued_to     String
+  date          DateTime       @db.Date
+  store_req_num Int
+  siv_items     SivItem[]
+  referance_scc ReferanceScc[]
+
+  @@map("sivs")
+}
+
+model SivItem {
+  id          Int    @id @default(autoincrement())
+  siv_id      Int
+  ser_num     Int
+  description String
+  um          Int
+  requested   Int
+  issued      Int
+  outstock    Int
+  unit_price  Float
+  total_price Float
+  remark      String
+  siv         Siv    @relation(fields: [siv_id], references: [id], onDelete: Cascade)
+  item        Item   @relation(fields: [description], references: [name])
+
+  @@map("siv_items")
+}
+
+model Location {
+  id          Int      @id @default(autoincrement())
+  name        String   // e.g. "Electronics Aisle", "Stationery Shelf"
+  aisle       String?  // e.g. "A", "B", "C"
+  shelf       String?  // e.g. "1", "2", "3"
+  bin         String?  // e.g. "01", "02", "03"
+  category    String?  // e.g. "Office Supplies", "IT Equipment", "Cleaning"
+  description String?
+  is_active   Boolean  @default(true)
+  items       Item[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([aisle])
+  @@map("locations")
+}
+
+model Item {
+  id                        Int                    @id @default(autoincrement())
+  name                      String                 @unique
+  sku                       String?
+  reorder_level             Int                    @default(0)
+  unit_measurement_id       Int
+  unit_measurement          UnitMeasurement        @relation(fields: [unit_measurement_id], references: [id])
+  type_id                   Int
+  type                      ItemType               @relation(fields: [type_id], references: [id])
+  location_id               Int?
+  location                  Location?              @relation(fields: [location_id], references: [id])
+  scc                       Scc[]
+  siv_items                 SivItem[]
+  srn_items                 SrnItem[]
+  grn_items                 GrnItem[]
+  store_issue_voucher_items StoreIssueVoucherItem[]
+
+  @@map("items")
+}
+
+model UnitMeasurement {
+  id                        Int                    @id @default(autoincrement())
+  unit                      String                 @unique
+  grn_items                 GrnItem[]
+  items                     Item[]
+  srn_items                 SrnItem[]
+  referance_scc             ReferanceScc[]
+  store_issue_voucher_items StoreIssueVoucherItem[]
+
+  @@map("unit_measurements")
+}
+
+model ItemType {
+  id    Int    @id @default(autoincrement())
+  type  String @unique
+  items Item[]
+
+  @@map("item_types")
+}
+
+model Role {
+  id        Int        @id @default(autoincrement())
+  role      String     @unique
+  employees Employee[]
+
+  @@map("roles")
+}
+
+model StoreIssueVoucher {
+  id                    Int                    @id @default(autoincrement())
+  issued_to             String
+  store_req_no          Int
+  total_id              Int?                   @unique
+  total                 Total?                 @relation(fields: [total_id], references: [id])
+  date                  DateTime               @db.Date
+  srn_id                Int?
+  issued_by_id          Int?
+  status                String                 @default("issued")
+  StoreIssueVoucherItem StoreIssueVoucherItem[]
+
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  @@index([srn_id])
+  @@map("store_issue_vouchers")
+}
+
+model StoreIssueVoucherItem {
+  id                  Int               @id @default(autoincrement())
+  description_id      Int
+  description         Item              @relation(fields: [description_id], references: [id])
+  unit_measurement_id Int
+  unit_measurement    UnitMeasurement   @relation(fields: [unit_measurement_id], references: [id])
+  requested           Int
+  issued              Int
+  out_of_stock        Int
+  unit_price          Float
+  total_price         Float
+  remark              String
+  store_issue_key     Int
+  store_issue_voucher StoreIssueVoucher @relation(fields: [store_issue_key], references: [id], onDelete: Cascade)
+
+  @@map("store_issue_voucher_items")
+}
+
+model Notification {
+  id          Int       @id @default(autoincrement())
+  message     String
+  date        DateTime  @db.Date
+  employee_id Int
+  grn_id      Int?
+  srn_id      Int?
+  type        String    @default("system")
+  link        String?
+  read        Boolean   @default(false)
+  timestamp   DateTime  @default(now())
+  grn         Grn?      @relation(fields: [grn_id], references: [id])
+  srn         Srn?      @relation(fields: [srn_id], references: [id])
+  employee    Employee  @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@index([employee_id, read])
+  @@map("notifications")
+}
