@@ -1,0 +1,16 @@
+{
+  "name": "nile-store-management",
+  "version": "1.0.0",
+  "description": "Nile Insurance Company - Store Management System (Backend + Frontend)",
+  "private": true,
+  "scripts": {
+    "build": "cd store-backend && npm install && npm run build && npx prisma generate",
+    "start": "cd store-backend && node dist/src/main.js",
+    "build:frontend": "cd store-frontend/Store_managmet_sms-main && npm install && npm run build",
+    "dev:backend": "cd store-backend && npm run start:dev",
+    "dev:frontend": "cd store-frontend/Store_managmet_sms-main && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

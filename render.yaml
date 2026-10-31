@@ -1,10 +1,14 @@
+# Render Blueprint Configuration
+# This file tells Render how to build and deploy both backend and frontend.
+# To use: Go to Render Dashboard -> New -> Blueprint -> Connect this repo.
+
 services:
   # ── Backend API (NestJS) ─────────────────────────────────────────────
   - type: web
     name: nile-store-backend
     runtime: node
     rootDir: store-backend
-    buildCommand: npm install && npm run build && npx prisma generate
+    buildCommand: npm install && npm run build && npx prisma generate && node prisma/apply-schema.js
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
