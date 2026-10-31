@@ -6,9 +6,10 @@
  */
 const { PrismaClient } = require('@prisma/client');
 
-// Skip if DATABASE_URL is not set (e.g., during initial Render build before env vars are configured)
-if (!process.env.DATABASE_URL) {
-  console.log('DATABASE_URL not set — skipping schema migration. Set it in Render dashboard and redeploy.');
+// Skip if DATABASE_URL is not set or invalid (e.g., during initial Render build before env vars are configured)
+const dbUrl = process.env.DATABASE_URL || '';
+if (!dbUrl || !dbUrl.startsWith('postgres')) {
+  console.log('DATABASE_URL not set or invalid — skipping schema migration. Set it in Render dashboard and redeploy.');
   process.exit(0);
 }
 

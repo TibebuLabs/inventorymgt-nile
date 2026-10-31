@@ -19,10 +19,11 @@ export class PrismaService
   }
 
   async onModuleInit() {
-    if (!process.env.DATABASE_URL) {
+    const dbUrl = process.env.DATABASE_URL || '';
+    if (!dbUrl || !dbUrl.startsWith('postgres')) {
       this.logger.warn(
-        '⚠️  DATABASE_URL not set — running without database. ' +
-          'Set DATABASE_URL in Render dashboard and redeploy.',
+        '⚠️  DATABASE_URL not set or invalid — running without database. ' +
+          'Set DATABASE_URL in Render dashboard (must start with postgresql://) and redeploy.',
       );
       return;
     }
