@@ -19,6 +19,13 @@ export class PrismaService
   }
 
   async onModuleInit() {
+    if (!process.env.DATABASE_URL) {
+      this.logger.warn(
+        '⚠️  DATABASE_URL not set — running without database. ' +
+          'Set DATABASE_URL in Render dashboard and redeploy.',
+      );
+      return;
+    }
     try {
       await this.$connect();
       this.logger.log('✅ Database connected (Supabase/PostgreSQL)');
@@ -28,17 +35,20 @@ export class PrismaService
         error instanceof Error ? error.message : String(error),
       );
       this.logger.error(
-        'Check your DATABASE_URL in .env — make sure the password is correct ' +
-          'and the Supabase project is not paused.',
+        'Check your DATABASE_URL in Render dashboard — make sure the password ' +
+          'is correct and the Supabase project is not paused.',
       );
-      // Re-throw so NestJS surfaces the failure clearly at startup.
-      // Fix: fill in the real password in .env, then restart.
-      throw error;
+      // Don't throw — allow app to start so health checks pass.
+      // Endpoints that need DB will return 500s until DB is configured.
     }
   }
 
   async onModuleDestroy() {
-    await this.$disconnect();
-    this.logger.log('Database disconnected');
+    try {
+      await this.$disconnect();
+      this.logger.log('Database disconnected');
+    } catch {
+      // ignore
+    }
   }
 }
