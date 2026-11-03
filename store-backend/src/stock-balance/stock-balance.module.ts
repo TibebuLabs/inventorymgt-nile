@@ -2,8 +2,10 @@
 import { Module } from '@nestjs/common';
 import { StockBalanceService } from './stock-balance.service';
 import { StockBalanceController } from './stock-balance.controller';
+import { PrismaModule } from 'prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [StockBalanceController],
   providers: [StockBalanceService],
 })

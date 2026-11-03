@@ -4,9 +4,10 @@ import { GrnService } from './good-reciving-note.service';
 import { EmployeeModule } from 'src/employee/employee.module';
 import { NotficationsModule } from 'src/notfications/notfications.module';
 import { StockModule } from 'src/stock/stock.module';
+import { AuditModule } from 'src/audit/audit.module';
 
 @Module({
-  imports: [forwardRef(() => EmployeeModule), NotficationsModule, StockModule],
+  imports: [forwardRef(() => EmployeeModule), NotficationsModule, StockModule, AuditModule],
   controllers: [GrnController],
   providers: [GrnService],
   exports: [GrnService],

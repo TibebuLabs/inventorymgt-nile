@@ -2,8 +2,10 @@
 import { Module } from '@nestjs/common';
 import { ReferanceSccController } from './reference-scc.controller';
 import { ReferanceSccService } from './reference-scc.service';
+import { PrismaModule } from 'prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [ReferanceSccController],
   providers: [ReferanceSccService],
 })
