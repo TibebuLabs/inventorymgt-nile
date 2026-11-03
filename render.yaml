@@ -19,11 +19,11 @@ services:
       - key: DIRECT_URL
         sync: false
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
       - key: ALLOWED_ORIGINS
         value: https://nile-store-frontend.onrender.com
       - key: DISABLE_SWAGGER
-        value: "false"
+        value: "true"
 
   # ── Frontend (React + Vite) ──────────────────────────────────────────
   - type: web
