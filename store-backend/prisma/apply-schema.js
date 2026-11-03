@@ -103,9 +103,7 @@ const STATEMENTS = [
 
   // Link Item to Location
   `ALTER TABLE "items" ADD COLUMN IF NOT EXISTS "location_id" INTEGER`,
-  `ALTER TABLE "items" ADD CONSTRAINT "items_location_id_fkey"
-        FOREIGN KEY ("location_id") REFERENCES "locations"("id") ON DELETE SET NULL ON UPDATE CASCADE`,
-
+  // (constraint added idempotently via FK_STATEMENTS below)
   // ── Store issue voucher workflow ──────────────────────────────────────
   `ALTER TABLE "store_issue_vouchers" ADD COLUMN IF NOT EXISTS "srn_id" INTEGER`,
   `ALTER TABLE "store_issue_vouchers" ADD COLUMN IF NOT EXISTS "issued_by_id" INTEGER`,
