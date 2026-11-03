@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@mui/icons-material": "^6.4.7",
+    "@mui/material": "^6.5.0",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "react": "^19.0.0",
