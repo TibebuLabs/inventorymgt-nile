@@ -4,6 +4,7 @@ import {
   Post,
   Body,
   Param,
+  ParseIntPipe,
   Put,
   Delete,
   NotFoundException,
@@ -18,18 +19,21 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @ApiTags('scc')
-// @UseGuards(JwtAuthGuard,RolesGuard)
-
+@ApiBearerAuth('JWT')
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('scc')
 export class SccController {
   constructor(private readonly sccService: SccService) {}
 
   @Post()
+  @Roles('admin', 'store-manager', 'store-keeper')
   @ApiOperation({ summary: 'Create a new SCC item' })
   @ApiResponse({
     status: 201,
@@ -58,8 +62,8 @@ export class SccController {
   })
   @ApiResponse({ status: 404, description: 'SCC item not found.' })
   @ApiParam({ name: 'id', type: Number, description: 'ID of the SCC item' })
-  async findOne(@Param('id') id: string) {
-    const sccItem = await this.sccService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const sccItem = await this.sccService.findOne(id);
     if (!sccItem) {
       throw new NotFoundException(`SCC item with ID ${id} not found`);
     }
@@ -68,6 +72,7 @@ export class SccController {
 
   // Update an SCC item by ID
   @Put(':id')
+  @Roles('admin', 'store-manager', 'store-keeper')
   @ApiOperation({ summary: 'Update an SCC item by ID' })
   @ApiResponse({
     status: 200,
@@ -76,12 +81,16 @@ export class SccController {
   @ApiResponse({ status: 404, description: 'SCC item not found.' })
   @ApiParam({ name: 'id', type: Number, description: 'ID of the SCC item' })
   @ApiBody({ type: UpdateSccDto })
-  async update(@Param('id') id: string, @Body() updateSccDto: UpdateSccDto) {
-    return this.sccService.update(+id, updateSccDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateSccDto: UpdateSccDto,
+  ) {
+    return this.sccService.update(id, updateSccDto);
   }
 
   // Delete an SCC item by ID
   @Delete(':id')
+  @Roles('admin')
   @ApiOperation({ summary: 'Delete an SCC item by ID' })
   @ApiResponse({
     status: 200,
@@ -89,7 +98,7 @@ export class SccController {
   })
   @ApiResponse({ status: 404, description: 'SCC item not found.' })
   @ApiParam({ name: 'id', type: Number, description: 'ID of the SCC item' })
-  async remove(@Param('id') id: string) {
-    return this.sccService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return this.sccService.remove(id);
   }
 }

@@ -10,6 +10,7 @@ import {
 import { Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { NotificationsService } from './notfications.service';
+import { resolveJwtSecret } from 'src/auth/jwt-secret';
 import * as jwt from 'jsonwebtoken';
 
 /**
@@ -20,14 +21,29 @@ import * as jwt from 'jsonwebtoken';
  * employeeId → socketIds so a notification can be delivered to every open tab
  * of the same user.
  */
+/**
+ * Resolve the allowed CORS origins at request time (not at import time) so
+ * values loaded from `.env` by ConfigModule are already present.
+ */
+function resolveAllowedOrigins(
+  origin: string | undefined,
+  callback: (err: Error | null, allow?: boolean) => void,
+): void {
+  const allowed = (
+    process.env.ALLOWED_ORIGINS ||
+    'http://localhost:5173,http://localhost:5174,http://localhost:3000'
+  )
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
+  // `origin` is undefined for same-origin/non-browser clients — allow those.
+  callback(null, !origin || allowed.includes(origin));
+}
+
 @WebSocketGateway({
   cors: {
-    origin: (
-      process.env.ALLOWED_ORIGINS ||
-      'http://localhost:5173,http://localhost:5174,http://localhost:3000'
-    )
-      .split(',')
-      .map((origin) => origin.trim()),
+    origin: resolveAllowedOrigins,
     credentials: true,
   },
   namespace: '/',
@@ -212,8 +228,11 @@ export class NotificationsGateway
       const token = String(raw).replace(/^Bearer\s+/i, '').trim();
       if (!token) return null;
 
-      const secret = process.env.JWT_SECRET || 'fallback-dev-secret';
-      const payload = jwt.verify(token, secret) as { sub?: number | string };
+      // Resolved per-connection (not at import time) so it picks up the env
+      // loaded by ConfigModule, and it fails closed in production.
+      const payload = jwt.verify(token, resolveJwtSecret()) as {
+        sub?: number | string;
+      };
 
       const id = Number(payload?.sub);
       return Number.isInteger(id) && id > 0 ? id : null;

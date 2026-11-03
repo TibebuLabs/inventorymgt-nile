@@ -23,7 +23,10 @@ class SharedPreferencesService {
   }
 
   async clear(): Promise<void> {
-    localStorage.clear();
+    // Only remove app-managed keys — never wipe the whole localStorage, which
+    // would also discard the user's theme preference (and unrelated data).
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }
 }
 

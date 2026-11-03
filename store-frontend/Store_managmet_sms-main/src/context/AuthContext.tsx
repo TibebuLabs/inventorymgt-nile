@@ -38,7 +38,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [user, setUser] = useState<AuthUser | null>(() => {
     const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(stored) : null;
+    if (!stored) return null;
+    try {
+      return JSON.parse(stored);
+    } catch {
+      localStorage.removeItem("user");
+      return null;
+    }
   });
 
   const navigate = useNavigate();
@@ -59,6 +65,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
     navigate("/login");
   };
+
+  // Auto-logout when a request surfaces an expired/invalid token.
+  useEffect(() => {
+    const handler = () => logout();
+    window.addEventListener("auth:unauthorized", handler);
+    return () => window.removeEventListener("auth:unauthorized", handler);
+  }, []);
 
   // Redirect away from /login if already authenticated
   useEffect(() => {

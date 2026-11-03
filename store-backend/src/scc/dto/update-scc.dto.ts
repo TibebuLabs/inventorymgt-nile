@@ -1,38 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { OmitType, PartialType } from '@nestjs/swagger';
+import { CreateSccDto } from './create-scc.dto';
 
-export class UpdateSccDto {
-  @ApiProperty({
-    description: 'Name of the item',
-    example: 'Item A',
-    required: false,
-  })
-  item?: string;
-
-  @ApiProperty({
-    description: 'Location shelves number',
-    example: 'Shelf 1',
-    required: false,
-  })
-  locationShelvesNo?: string;
-
-  @ApiProperty({
-    description: 'Maximum stock level',
-    example: 100,
-    required: false,
-  })
-  maxStockLevel?: number;
-
-  @ApiProperty({
-    description: 'Minimum stock level',
-    example: 10,
-    required: false,
-  })
-  minStockLevel?: number;
-
-  @ApiProperty({
-    description: 'Reference key',
-    example: 12345,
-    required: false,
-  })
-  referanceKey?: number;
-}
+/**
+ * Partial update for a Stock Control Card. Field names mirror the Prisma
+ * model `Scc` (snake_case) so the payload can be spread into
+ * `prisma.scc.update` without hitting `PrismaClientValidationError`.
+ *
+ * `item` is intentionally excluded — it is the unique natural key of the
+ * card and must not be changed through an update.
+ */
+export class UpdateSccDto extends PartialType(
+  OmitType(CreateSccDto, ['item'] as const),
+) {}

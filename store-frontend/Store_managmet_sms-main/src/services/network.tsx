@@ -7,9 +7,22 @@ class HttpNetworkService {
   private client: AxiosInstance;
 
   constructor(prefs: SharedPreferencesService) {
-    // Use VITE_ prefix for environment variables in Vite projects
-    this.baseUrl =
-      import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/";
+    // Use VITE_ prefix for environment variables in Vite projects.
+    const fromEnv = import.meta.env.VITE_API_BASE_URL;
+    if (fromEnv) {
+      this.baseUrl = fromEnv;
+    } else if (import.meta.env.DEV) {
+      this.baseUrl = "http://localhost:3000/";
+    } else {
+      // In production the env var must be set at build time; fall back to the
+      // same origin and warn loudly so a misconfigured deploy is obvious.
+      this.baseUrl = window.location.origin;
+      console.error(
+        "[network] VITE_API_BASE_URL is not set — falling back to " +
+          window.location.origin +
+          ". Set VITE_API_BASE_URL at build time for production.",
+      );
+    }
     this.prefs = prefs;
     this.client = axios.create({
       baseURL: this.baseUrl,
@@ -119,8 +132,20 @@ class HttpNetworkService {
         const message =
           data?.message ||
           (typeof data === "string" ? data : JSON.stringify(data));
+        const url = (error.config?.url as string) || "";
 
-        if (status === 401) return new Error(`Unauthorized: ${message}`);
+        if (status === 401) {
+          // An expired/invalid token in production should not leave the user
+          // stuck in a half-authenticated state. Clear local credentials and
+          // notify AuthContext (except while the login request itself fails).
+          const isLogin = url.includes("auth/login");
+          if (!isLogin && this.prefs.getString("token")) {
+            this.prefs.remove("token").catch(() => undefined);
+            this.prefs.remove("user").catch(() => undefined);
+            window.dispatchEvent(new Event("auth:unauthorized"));
+          }
+          return new Error(`Unauthorized: ${message}`);
+        }
         if (status === 403) return new Error(`Forbidden: ${message}`);
         if (status === 404) return new Error(`Not found: ${message}`);
         if (status === 409) return new Error(`Conflict: ${message}`);

@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsInt,
@@ -47,4 +47,9 @@ export class CreateLocationDto {
   is_active?: boolean;
 }
 
-export class UpdateLocationDto extends CreateLocationDto {}
+/**
+ * Location updates may be partial — only the fields sent by the client are
+ * applied. (Previously this class extended `CreateLocationDto` directly,
+ * which forced `name` on every PUT and made partial updates fail with 400.)
+ */
+export class UpdateLocationDto extends PartialType(CreateLocationDto) {}

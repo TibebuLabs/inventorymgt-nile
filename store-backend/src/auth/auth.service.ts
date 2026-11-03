@@ -60,7 +60,11 @@ export class AuthService {
         throw error;
       }
       const msg = error instanceof Error ? error.message : String(error);
-      throw new InternalServerErrorException(`Failed to validate user: ${msg}`);
+      // eslint-disable-next-line no-console
+      console.error('[auth] validateUser failed:', msg);
+      throw new InternalServerErrorException(
+        'Failed to validate user. Please try again.',
+      );
     }
   }
 

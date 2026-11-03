@@ -5,6 +5,8 @@ import { AddtostockService } from './addtostock.service';
 describe('AddtostockController', () => {
   let controller: AddtostockController;
 
+  const actor = { id: 1, name: 'Test User', role: 'admin' };
+
   const mockAddtostockService = {
     create: jest
       .fn()
@@ -20,15 +22,19 @@ describe('AddtostockController', () => {
     }).compile();
 
     controller = module.get<AddtostockController>(AddtostockController);
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should call service.create with the dto', async () => {
-    const dto = { id: 1 };
-    await controller.create(dto);
-    expect(mockAddtostockService.create).toHaveBeenCalledWith(dto);
+  it('should call service.create with the dto and the requesting actor', async () => {
+    const dto = { id: 1 } as any;
+    const req = { user: actor } as any;
+
+    await controller.create(dto, req);
+
+    expect(mockAddtostockService.create).toHaveBeenCalledWith(dto, actor);
   });
 });

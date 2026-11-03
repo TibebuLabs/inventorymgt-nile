@@ -10,6 +10,7 @@ services:
     rootDir: store-backend
     buildCommand: npm install && npm run build && npx prisma generate && node prisma/apply-schema.js
     startCommand: npm run start:prod
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
@@ -19,8 +20,10 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: PORT
-        value: 10000
+      - key: ALLOWED_ORIGINS
+        value: https://nile-store-frontend.onrender.com
+      - key: DISABLE_SWAGGER
+        value: "false"
 
   # ── Frontend (React + Vite) ──────────────────────────────────────────
   - type: web

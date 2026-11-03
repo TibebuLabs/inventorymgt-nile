@@ -15,7 +15,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { LocationService } from './location.service';
-import { CreateLocationDto } from './dto/create-location.dto';
+import { CreateLocationDto, UpdateLocationDto } from './dto/create-location.dto';
 
 @ApiTags('locations')
 @ApiBearerAuth('JWT')
@@ -44,7 +44,10 @@ export class LocationController {
 
   @Put(':id')
   @Roles('admin', 'store-manager', 'store-keeper')
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: CreateLocationDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateLocationDto,
+  ) {
     return this.locationService.update(id, dto);
   }
 

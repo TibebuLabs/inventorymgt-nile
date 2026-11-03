@@ -306,6 +306,19 @@ export class StoreIssueVoucherService {
     }
 
     await this.prisma.$transaction(async (tx) => {
+      // Re-read the status *inside* the transaction so two concurrent cancel
+      // requests cannot both return the stock to the ledger.
+      const fresh = await tx.storeIssueVoucher.findUnique({
+        where: { id },
+        select: { status: true },
+      });
+      if (!fresh) {
+        throw new NotFoundException(`Voucher #${id} not found`);
+      }
+      if (fresh.status === 'cancelled') {
+        throw new ConflictException('This voucher is already cancelled.');
+      }
+
       for (const line of voucher.StoreIssueVoucherItem) {
         if (line.issued <= 0) continue;
         const itemName = line.description?.name;

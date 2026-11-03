@@ -385,6 +385,21 @@ export class GrnService {
       throw new BadRequestException('ID must be an integer.');
     }
 
+    const existing = await this.prisma.grn.findUnique({
+      where: { id },
+      select: { posted_at: true },
+    });
+    if (!existing) {
+      throw new NotFoundException(`GRN with ID ${id} not found.`);
+    }
+    if (existing.posted_at) {
+      // The GRN has already been posted to stock — editing it would desync
+      // the document from the ledger.
+      throw new ConflictException(
+        `GRN with ID ${id} has already been posted to stock and can no longer be edited.`,
+      );
+    }
+
     try {
       return await this.prisma.grn.update({
         where: { id },
@@ -399,8 +414,8 @@ export class GrnService {
       });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        throw new NotFoundException(
-          `Unable to update. GRN with ID ${id} not found.`,
+        throw new BadRequestException(
+          `Unable to update GRN ${id}: invalid data supplied.`,
         );
       }
       throw new BadRequestException('Invalid data provided for update.');

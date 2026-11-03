@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { PrismaExceptionFilter } from './common/prisma-exception.filter';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EmployeeModule } from './employee/employee.module';
@@ -38,6 +41,14 @@ import { LocationModule } from './location/location.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    // Brute-force / DoS protection. Global default; auth/login is overridden
+    // to a much stricter limit via @Throttle on the controller.
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60_000,
+        limit: 100,
+      },
+    ]),
     // One shared PrismaClient for the whole app (avoids pool exhaustion).
     PrismaModule,
     AuditModule,
@@ -69,6 +80,10 @@ import { LocationModule } from './location/location.module';
     LocationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_FILTER, useClass: PrismaExceptionFilter },
+  ],
 })
 export class AppModule {}

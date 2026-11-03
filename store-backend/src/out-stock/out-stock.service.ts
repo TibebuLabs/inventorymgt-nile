@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -37,9 +38,16 @@ export class OutStockService {
     if (srn.status === 'rejected') {
       throw new BadRequestException('A rejected requisition cannot be issued');
     }
-    if (srn.status !== 'approved' && srn.status !== 'pending') {
+    if (srn.status === 'fulfilled') {
+      throw new ConflictException(
+        `SRN #${dto.id} has already been issued`,
+      );
+    }
+    if (srn.status !== 'approved') {
+      // `pending` (and any other non-approved state) must never issue stock —
+      // approval is the control that authorises the movement.
       throw new BadRequestException(
-        `SRN #${dto.id} cannot be issued from status "${srn.status}"`,
+        `SRN #${dto.id} must be approved before stock can be issued (current status: "${srn.status}")`,
       );
     }
 

@@ -156,6 +156,13 @@ export class SrnService {
     if (srn.status === 'rejected') {
       throw new ConflictException('A rejected requisition cannot be approved.');
     }
+    if (srn.status === 'fulfilled') {
+      // Re-approving a fulfilled requisition would reset it to "approved"
+      // and let the same stock be issued a second time.
+      throw new ConflictException(
+        'A fulfilled requisition cannot be re-approved. Cancel the original voucher first.',
+      );
+    }
 
     let approvementId = srn.approvment_id;
     if (approvementId) {

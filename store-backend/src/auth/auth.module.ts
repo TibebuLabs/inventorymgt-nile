@@ -7,6 +7,7 @@ import { EmployeeModule } from 'src/employee/employee.module';
 import { PrismaModule } from 'prisma/prisma.module';
 import { JwtStrategy } from './jwt.strategy';
 import { RolesGuard } from './guards/roles.guard';
+import { resolveJwtSecret } from './jwt-secret';
 
 @Module({
   imports: [
@@ -16,7 +17,9 @@ import { RolesGuard } from './guards/roles.guard';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET', 'fallback-dev-secret'),
+        // resolveJwtSecret fails fast in production when the secret is
+        // missing instead of silently using a forgeable fallback.
+        secret: resolveJwtSecret(),
         signOptions: {
           expiresIn: configService.get<string>('JWT_EXPIRES_IN', '8h'),
         },
