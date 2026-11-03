@@ -31,11 +31,11 @@ services:
     runtime: static
     rootDir: store-frontend/Store_managmet_sms-main
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    publicPath: dist
     envVars:
       - key: VITE_API_BASE_URL
         value: https://nile-store-backend.onrender.com/
     routes:
       - type: rewrite
-        source: /*
+        source: ^(?!.*\.).*$
         destination: /index.html
