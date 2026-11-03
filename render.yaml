@@ -8,7 +8,7 @@ services:
     name: nile-store-backend
     runtime: node
     rootDir: store-backend
-    buildCommand: npm install && npm run build && npx prisma generate && node prisma/apply-schema.js
+    buildCommand: npm ci --omit=dev && npm run build && npx prisma generate && node prisma/apply-schema.js
     startCommand: npm run start:prod
     healthCheckPath: /health
     envVars:
