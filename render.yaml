@@ -31,9 +31,6 @@ services:
     rootDir: store-frontend/Store_managmet_sms-main
     buildCommand: npm install && npm run build
     publishPath: dist
-    envVars:
-      - key: VITE_API_BASE_URL
-        value: https://nile-store-backend.onrender.com/
     routes:
       - path: /*
         destination: /index.html
