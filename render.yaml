@@ -21,18 +21,17 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: ALLOWED_ORIGINS
-        value: https://inventorymgt-nile-frontend.onrender.com
+        value: https://nile-store-frontend.onrender.com
       - key: DISABLE_SWAGGER
         value: "true"
 
-  # ── Frontend (React + Vite) ──────────────────────────────────────────
-  # IMPORTANT: This MUST be type: static_site, NOT web!
-  # Static sites don't need a startCommand and serve pre-built files only.
-  - type: static_site
+  # ── Frontend (React + Vite) - Express Web Service ─────────────────────
+  - type: web
     name: nile-store-frontend
+    runtime: node
     rootDir: store-frontend/Store_managmet_sms-main
-    buildCommand: npm ci && npm run build
-    publishPath: dist
-    routes:
-      - path: /*
-        destination: /index.html
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: "3000"

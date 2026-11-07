@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite preview --host 0.0.0.0"
+    "start": "node server.js"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -17,6 +17,7 @@
     "@mui/material": "^6.5.0",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
+    "express": "^4.18.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
