@@ -21,7 +21,7 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: ALLOWED_ORIGINS
-        value: https://nile-store-frontend.onrender.com
+        value: https://nile-store-frontend.onrender.com,https://inventorymgt-nile-frontend.onrender.com
       - key: DISABLE_SWAGGER
         value: "true"
 

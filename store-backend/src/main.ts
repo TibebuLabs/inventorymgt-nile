@@ -78,12 +78,14 @@ async function bootstrap() {
   // Graceful shutdown so Prisma disconnects on SIGTERM (Render deploys).
   app.enableShutdownHooks();
 
+  // Use PORT from environment (Render provides this), default to 3000
+  // IMPORTANT: Listen on 0.0.0.0 to accept external requests on Render
   const port = Number(process.env.PORT) || 3000;
   await app.listen(port, '0.0.0.0');
-  logger.log(`🚀 Store Management API running on: http://localhost:${port}`);
+  logger.log(`🚀 Store Management API running on: http://0.0.0.0:${port}`);
   logger.log(
     `📖 Swagger docs: ${
-      process.env.DISABLE_SWAGGER === 'true' ? 'disabled' : `http://localhost:${port}/api`
+      process.env.DISABLE_SWAGGER === 'true' ? 'disabled' : `http://0.0.0.0:${port}/api`
     }`,
   );
 }
