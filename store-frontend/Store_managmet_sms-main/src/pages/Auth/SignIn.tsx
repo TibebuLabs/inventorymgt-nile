@@ -54,8 +54,8 @@ export const SignIn = () => {
 
   return (
     <div className="min-h-screen flex bg-white dark:bg-slate-900 transition-colors duration-300">
-      {/* ── Left panel — branding with green gradient ──────────────── */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between bg-gradient-to-br from-[#0d5f4f] via-[#0f7f6f] to-[#059669] p-12 relative overflow-hidden">
+      {/* ── Left panel — branding with teal gradient ──────────────── */}
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#0d9488] p-12 relative overflow-hidden">
         {/* decorative circles */}
         <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/10 backdrop-blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-white/5 backdrop-blur-3xl" />
@@ -106,7 +106,7 @@ export const SignIn = () => {
         <div className="w-full max-w-md">
           {/* mobile logo */}
           <div className="flex items-center gap-3 mb-10 lg:hidden">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#0d5f4f] to-[#059669] rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#0d9488] to-[#0d9488] rounded-2xl flex items-center justify-center shadow-lg">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -132,7 +132,7 @@ export const SignIn = () => {
                 autoComplete="email"
                 placeholder="you@company.com"
                 className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
-                  focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-transparent
+                  focus:outline-none focus:ring-2 focus:ring-[#0d9488] focus:border-transparent
                   hover:border-slate-300 dark:hover:border-slate-600 transition bg-white dark:bg-slate-800"
               />
             </div>
@@ -151,13 +151,13 @@ export const SignIn = () => {
                   autoComplete="current-password"
                   placeholder="••••••••"
                   className="w-full px-4 py-3 pr-12 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
-                    focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-transparent
+                    focus:outline-none focus:ring-2 focus:ring-[#0d9488] focus:border-transparent
                     hover:border-slate-300 dark:hover:border-slate-600 transition bg-white dark:bg-slate-800"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#059669] transition"
+                  className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#0d9488] transition"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
@@ -179,10 +179,10 @@ export const SignIn = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-gradient-to-r from-[#0d5f4f] to-[#059669] hover:from-[#0f7f6f] hover:to-[#047857] active:from-[#0a4a42] active:to-[#035c4a]
+              className="w-full py-3 bg-gradient-to-r from-[#0d9488] to-[#0d9488] hover:from-[#14b8a6] hover:to-[#2dd4bf] active:from-[#0a7e6f] active:to-[#0d9488]
                 disabled:opacity-60 disabled:cursor-not-allowed
                 text-white font-semibold rounded-2xl transition-all duration-300
-                flex items-center justify-center gap-2 shadow-lg shadow-green-600/30 hover:shadow-green-600/40
+                flex items-center justify-center gap-2 shadow-lg shadow-teal-600/30 hover:shadow-teal-600/40
                 border border-white/10"
             >
               {isLoading ? (
