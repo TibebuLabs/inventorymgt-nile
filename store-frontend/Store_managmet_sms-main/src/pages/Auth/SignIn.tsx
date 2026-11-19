@@ -54,48 +54,50 @@ export const SignIn = () => {
 
   return (
     <div className="min-h-screen flex bg-white dark:bg-slate-900 transition-colors duration-300">
-      {/* ── Left panel — branding ────────────────────────────────── */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between bg-blue-600 p-12 relative overflow-hidden">
+      {/* ── Left panel — branding with green gradient ──────────────── */}
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between bg-gradient-to-br from-[#0d5f4f] via-[#0f7f6f] to-[#059669] p-12 relative overflow-hidden">
         {/* decorative circles */}
-        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-blue-500/40" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-blue-700/50" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-blue-500/20" />
+        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/10 backdrop-blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-white/5 backdrop-blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/5 backdrop-blur-3xl" />
 
         {/* logo */}
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-white/20 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl border border-white/30">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
             </div>
-            <span className="text-white font-bold text-xl tracking-tight">Nile Insurance</span>
+            <span className="text-white font-bold text-2xl tracking-tight">Nile Store</span>
           </div>
         </div>
 
         {/* headline */}
         <div className="relative z-10">
-          <h1 className="text-white text-4xl font-bold leading-tight mb-4">
-            Nile Insurance Company<br />Store Management System
+          <h1 className="text-white text-5xl font-bold leading-tight mb-6">
+            Store Management<br />System
           </h1>
-          <p className="text-blue-100 text-lg leading-relaxed">
-            Smart, efficient, and responsive store management solution — track inventory, manage goods receiving notes,
-            process store requisitions, issue vouchers and monitor stock levels in real-time.
+          <p className="text-green-100 text-lg leading-relaxed max-w-lg">
+            Smart, efficient, and responsive platform for managing inventory, goods receiving notes, store requisitions, and real-time stock control.
           </p>
 
           {/* feature pills */}
-          <div className="flex flex-wrap gap-3 mt-8">
-            {["GRN & SRN Management", "Stock Control Cards", "Real-time Notifications", "Role-Based Access", "Dark/Light Mode"].map(f => (
-              <span key={f} className="px-3 py-1.5 bg-white/20 text-white text-sm rounded-full font-medium backdrop-blur-sm">
+          <div className="flex flex-wrap gap-3 mt-10">
+            {["📦 GRN & SRN", "📊 Stock Control", "🔔 Notifications", "🔐 Role-Based", "🎨 Dark Mode"].map(f => (
+              <span key={f} className="px-4 py-2 bg-white/15 text-white text-sm rounded-full font-medium backdrop-blur-md border border-white/20 hover:bg-white/25 transition-all">
                 {f}
               </span>
             ))}
           </div>
         </div>
 
-        <p className="relative z-10 text-blue-200 text-sm">
-          © {new Date().getFullYear()} Store Management System
+        <p className="relative z-10 text-green-100/70 text-sm flex items-center gap-2">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+          </svg>
+          Trusted by modern businesses
         </p>
       </div>
 
@@ -103,23 +105,23 @@ export const SignIn = () => {
       <div className="flex-1 flex items-center justify-center p-6 lg:p-16 bg-white dark:bg-slate-900 transition-colors duration-300">
         <div className="w-full max-w-md">
           {/* mobile logo */}
-          <div className="flex items-center gap-2 mb-10 lg:hidden">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center gap-3 mb-10 lg:hidden">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#0d5f4f] to-[#059669] rounded-2xl flex items-center justify-center shadow-lg">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
             </div>
-            <span className="font-bold text-slate-800 dark:text-white">Nile Insurance</span>
+            <span className="font-bold text-slate-800 dark:text-white text-lg">Nile Store</span>
           </div>
 
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome back</h2>
-          <p className="text-slate-500 dark:text-slate-400 mb-8">Sign in to your account to continue</p>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-3">Welcome back</h2>
+          <p className="text-slate-500 dark:text-slate-400 mb-10 text-lg">Sign in to your account to continue</p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Email address
               </label>
               <input
@@ -129,15 +131,15 @@ export const SignIn = () => {
                 required
                 autoComplete="email"
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
-                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                  hover:border-slate-300 dark:hover:border-slate-500 transition bg-white dark:bg-slate-800"
+                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
+                  focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-transparent
+                  hover:border-slate-300 dark:hover:border-slate-600 transition bg-white dark:bg-slate-800"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -148,14 +150,14 @@ export const SignIn = () => {
                   required
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 pr-12 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
-                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                    hover:border-slate-300 dark:hover:border-slate-500 transition bg-white dark:bg-slate-800"
+                  className="w-full px-4 py-3 pr-12 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
+                    focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-transparent
+                    hover:border-slate-300 dark:hover:border-slate-600 transition bg-white dark:bg-slate-800"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-slate-600 transition"
+                  className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#059669] transition"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
@@ -165,11 +167,11 @@ export const SignIn = () => {
 
             {/* Error */}
             {error && (
-              <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
-                <svg className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-start gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl px-5 py-4 animate-slide-up">
+                <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
-                <p className="text-red-600 text-sm">{error}</p>
+                <p className="text-red-600 dark:text-red-400 text-sm font-medium">{error}</p>
               </div>
             )}
 
@@ -177,14 +179,15 @@ export const SignIn = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800
+              className="w-full py-3 bg-gradient-to-r from-[#0d5f4f] to-[#059669] hover:from-[#0f7f6f] hover:to-[#047857] active:from-[#0a4a42] active:to-[#035c4a]
                 disabled:opacity-60 disabled:cursor-not-allowed
-                text-white font-semibold rounded-xl transition-all duration-200
-                flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
+                text-white font-semibold rounded-2xl transition-all duration-300
+                flex items-center justify-center gap-2 shadow-lg shadow-green-600/30 hover:shadow-green-600/40
+                border border-white/10"
             >
               {isLoading ? (
                 <>
-                  <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
@@ -194,8 +197,8 @@ export const SignIn = () => {
             </button>
           </form>
 
-          <p className="text-center text-slate-400 dark:text-slate-500 text-xs mt-10">
-            &copy; {new Date().getFullYear()} Nile Insurance Company - Store Management System. All rights reserved.
+          <p className="text-center text-slate-400 dark:text-slate-500 text-xs mt-12">
+            &copy; {new Date().getFullYear()} Nile Insurance Company Store System
           </p>
         </div>
       </div>
