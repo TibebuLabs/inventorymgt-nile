@@ -72,7 +72,7 @@ const TrendChart = ({ trend }: { trend: DashboardSummary["trend"] }) => {
                 title={`${number(day.in)} received`}
               />
               <div
-                className="w-3 rounded-t bg-blue-500/80 transition-all hover:bg-blue-500 sm:w-4"
+                className="w-3 rounded-t bg-teal-500/80 transition-all hover:bg-teal-500 sm:w-4"
                 style={{ height: `${Math.max(3, (day.out / max) * 100)}%` }}
                 title={`${number(day.out)} issued`}
               />
@@ -90,7 +90,7 @@ const TrendChart = ({ trend }: { trend: DashboardSummary["trend"] }) => {
           <span className="h-2 w-2 rounded-full bg-emerald-500" /> Received
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-blue-500" /> Issued
+          <span className="h-2 w-2 rounded-full bg-teal-500" /> Issued
         </span>
       </div>
     </div>
@@ -114,7 +114,7 @@ const PipelineStep = ({
 }) => (
   <Link
     to={to}
-    className="group flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:border-blue-300 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-500/50"
+    className="group flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:border-teal-300 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800 dark:hover:border-teal-500/50"
   >
     <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm", tone)}>
       {icon}
@@ -126,7 +126,7 @@ const PipelineStep = ({
       </p>
       <p className="truncate text-[10px] text-slate-400 dark:text-slate-500">{hint}</p>
     </div>
-    <FaArrowRight className="ml-auto hidden shrink-0 text-xs text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-500 sm:block" />
+    <FaArrowRight className="ml-auto hidden shrink-0 text-xs text-slate-300 transition group-hover:translate-x-1 group-hover:text-teal-500 sm:block" />
   </Link>
 );
 
@@ -267,7 +267,7 @@ const Home = () => {
           value={number(data?.stock.totalUnits)}
           hint={`${data?.stock.lowStock ?? 0} low · ${data?.stock.outOfStock ?? 0} out of stock`}
           icon={<FaWarehouse />}
-          tone="blue"
+          tone="teal"
           loading={loading && !data}
         />
         <StatCard
@@ -300,7 +300,7 @@ const Home = () => {
               Every document tracked from vendor to employee
             </p>
           </div>
-          <Badge tone="blue" dot>
+          <Badge tone="teal" dot>
             Live
           </Badge>
         </div>
@@ -319,7 +319,7 @@ const Home = () => {
             value={data?.counts.grns ?? 0}
             hint={`${data?.workflow.pendingGrns ?? 0} pending approval`}
             to="/dashboard/list-view"
-            tone="bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300"
+            tone="bg-teal-50 text-teal-600 dark:bg-teal-500/15 dark:text-teal-300"
           />
           <PipelineStep
             icon={<FaWarehouse />}
@@ -365,7 +365,7 @@ const Home = () => {
                 <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
                   <FaArrowDown /> {number(data?.finance.receivedUnits30d)} in
                 </span>
-                <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
+                <span className="flex items-center gap-1 text-teal-600 dark:text-teal-400">
                   <FaArrowUp /> {number(data?.finance.issuedUnits30d)} out
                 </span>
               </div>
@@ -388,7 +388,7 @@ const Home = () => {
               </h2>
               <Link
                 to="/dashboard/list-view"
-                className="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                className="text-xs font-semibold text-teal-600 hover:underline dark:text-teal-400"
               >
                 View all
               </Link>
@@ -420,7 +420,7 @@ const Home = () => {
                       to={`/dashboard/grn-details/${grn.id}`}
                       className="flex items-center gap-3 px-6 py-3 transition-all hover:bg-slate-50 dark:hover:bg-slate-700/30"
                     >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-xs text-blue-600 dark:bg-blue-500/15 dark:text-blue-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-xs text-teal-600 dark:bg-teal-500/15 dark:text-teal-300">
                         <FaBoxOpen />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -458,7 +458,7 @@ const Home = () => {
                 <Link
                   key={action.to}
                   to={action.to}
-                  className="flex flex-col items-center gap-2 rounded-xl border border-slate-200 p-4 text-center text-xs font-medium transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-blue-500/50 dark:hover:bg-blue-500/10 dark:hover:text-blue-300"
+                  className="flex flex-col items-center gap-2 rounded-xl border border-slate-200 p-4 text-center text-xs font-medium transition-all hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-500/50 dark:hover:bg-teal-500/10 dark:hover:text-teal-300"
                 >
                   <span className="text-base">{action.icon}</span>
                   {action.label}
@@ -509,7 +509,7 @@ const Home = () => {
                         <FaMapPin className="text-slate-400" />
                         <span className="truncate max-w-[140px]">{locDisplay}</span>
                         {row.category !== "—" && (
-                          <Badge tone="blue">{row.category}</Badge>
+                          <Badge tone="teal">{row.category}</Badge>
                         )}
                       </div>
                       <ProgressBar
@@ -542,7 +542,7 @@ const Home = () => {
               </h2>
               <Link
                 to="/dashboard/audit"
-                className="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                className="text-xs font-semibold text-teal-600 hover:underline dark:text-teal-400"
               >
                 Audit trail
               </Link>
@@ -559,7 +559,7 @@ const Home = () => {
               <ul className="divide-y divide-slate-100 dark:divide-slate-700/60">
                 {data?.recent.activity.slice(0, 6).map((entry) => (
                   <li key={entry.id} className="flex gap-3 px-6 py-3">
-                    <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
+                    <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-teal-500" />
                     <div className="min-w-0">
                       <p className="truncate text-xs font-medium text-slate-700 dark:text-slate-200">
                         {entry.description}
