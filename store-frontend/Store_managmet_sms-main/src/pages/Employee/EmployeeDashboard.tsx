@@ -103,8 +103,8 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
             title="Returned Devices"
             value={"0"}
             icon={<FiCheckCircle className="w-5 h-5" />}
-            iconBgColor="bg-blue-100"
-            iconColor="text-blue-600"
+            iconBgColor="bg-teal-100"
+            iconColor="text-teal-600"
             onClick={() => console.log('View returned devices')}
           />
         </div>

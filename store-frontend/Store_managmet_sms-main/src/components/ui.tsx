@@ -67,7 +67,7 @@ export const Card = ({
     className={cn(
       "rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-200/40",
       "dark:border-slate-700/80 dark:bg-slate-800 dark:shadow-none transition-all duration-300",
-      hover && "hover:shadow-xl hover:shadow-blue-100/50 dark:hover:shadow-blue-900/20",
+      hover && "hover:shadow-xl hover:shadow-teal-100/50 dark:hover:shadow-teal-900/20",
       padded && "p-6",
       className
     )}
@@ -97,7 +97,7 @@ export const PageHeader = ({
   )}>
     <div className="flex items-start gap-3">
       {icon && (
-        <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400">
+        <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-teal-600 dark:bg-teal-500/15 dark:text-teal-400">
           {icon}
         </div>
       )}
@@ -150,7 +150,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "success" | 
 
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   primary:
-    "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500 shadow-sm shadow-blue-600/20 transition-all",
+    "bg-teal-600 text-white hover:bg-teal-700 focus-visible:ring-teal-500 shadow-sm shadow-teal-600/20 transition-all",
   secondary:
     "bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-200 dark:ring-slate-600 dark:hover:bg-slate-700 transition-all",
   ghost:
@@ -201,7 +201,7 @@ export const Button = ({
 
 const CONTROL =
   "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 placeholder-slate-400 " +
-  "transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 " +
+  "transition-all duration-200 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 " +
   "dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-100 dark:placeholder-slate-500";
 
 export const Input = ({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) => (
@@ -336,7 +336,7 @@ export const Skeleton = ({ className }: { className?: string }) => (
 
 export const Spinner = ({ className }: { className?: string }) => (
   <FaSpinner
-    className={cn("animate-spin text-blue-600 dark:text-blue-400", className)}
+    className={cn("animate-spin text-teal-600 dark:text-teal-400", className)}
   />
 );
 
@@ -452,7 +452,7 @@ export const Tabs = <T extends string>({
             className={cn(
               "rounded-full px-2 py-0.5 text-[10px] font-bold",
               value === tab.id
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300"
+                ? "bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300"
                 : "bg-slate-200 text-slate-500 dark:bg-slate-700 dark:text-slate-400"
             )}
           >
@@ -602,7 +602,7 @@ export const useToast = (): ToastApi => {
 const TOAST_STYLE: Record<ToastKind, string> = {
   success: "border-emerald-200 bg-white text-emerald-800 dark:border-emerald-500/40 dark:bg-slate-800 dark:text-emerald-300",
   error: "border-red-200 bg-white text-red-800 dark:border-red-500/40 dark:bg-slate-800 dark:text-red-300",
-  info: "border-blue-200 bg-white text-blue-800 dark:border-blue-500/40 dark:bg-slate-800 dark:text-blue-300",
+  info: "border-teal-200 bg-white text-teal-800 dark:border-teal-500/40 dark:bg-slate-800 dark:text-teal-300",
   warning: "border-amber-200 bg-white text-amber-800 dark:border-amber-500/40 dark:bg-slate-800 dark:text-amber-300",
 };
 

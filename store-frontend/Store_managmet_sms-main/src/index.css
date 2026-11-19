@@ -4,27 +4,27 @@
 /* Enable dark mode with class strategy */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* CSS Variables for theming - Professional Green & Teal Palette */
+/* CSS Variables for theming - BOB Pharmacy inspired Teal/Emerald Palette */
 :root {
   color-scheme: light;
-  /* Primary Colors - Deep Teal & Forest Green */
-  --color-primary: #0d5f4f;
-  --color-primary-light: #0f7f6f;
-  --color-primary-lighter: #14a085;
-  --color-accent: #059669;
-  --color-accent-light: #d1fae5;
-  --color-accent-darker: #047857;
+  /* Primary Colors - Teal/Emerald inspired by BOB Pharmacy */
+  --color-primary: #0d9488;
+  --color-primary-light: #14b8a6;
+  --color-primary-lighter: #2dd4bf;
+  --color-accent: #0d9488;
+  --color-accent-light: #ccfbf1;
+  --color-accent-darker: #0a7e6f;
   
   /* Backgrounds */
-  --color-bg-primary: #f8fafc;
+  --color-bg-primary: #f8fafb;
   --color-bg-secondary: #ffffff;
-  --color-bg-tertiary: #f1f5f9;
-  --color-bg-accent: #f0fdf4;
+  --color-bg-tertiary: #f3f4f6;
+  --color-bg-accent: #f0fdfa;
   
   /* Borders */
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-border-green: #86efac;
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-border-teal: #99f6e4;
   
   /* Text */
   --color-text-primary: #0f172a;
@@ -32,31 +32,31 @@
   --color-text-tertiary: #94a3b8;
   
   /* Status Colors */
-  --color-success: #059669;
+  --color-success: #10b981;
   --color-success-light: #d1fae5;
-  --color-warning: #d97706;
+  --color-warning: #f59e0b;
   --color-warning-light: #fef3c7;
-  --color-error: #dc2626;
+  --color-error: #ef4444;
   --color-error-light: #fee2e2;
-  --color-info: #0891b2;
-  --color-info-light: #cffafe;
+  --color-info: #0d9488;
+  --color-info-light: #ccfbf1;
   
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0, 0 / 0.04), 0 1px 2px -1px rgb(0 0, 0 / 0.04);
   --shadow-md: 0 4px 6px -1px rgb(0 0, 0 / 0.08), 0 2px 4px -2px rgb(0 0, 0 / 0.08);
   --shadow-lg: 0 10px 15px -3px rgb(0 0, 0 / 0.08), 0 4px 6px -4px rgb(0 0, 0 / 0.08);
-  --shadow-green: 0 10px 25px -3px rgb(13, 95, 79, 0.15);
+  --shadow-teal: 0 10px 25px -3px rgb(13, 148, 136, 0.15);
 }
 
 .dark {
   color-scheme: dark;
-  --color-primary: #0f7f6f;
-  --color-primary-light: #14a085;
-  --color-primary-lighter: #22c55e;
-  --color-accent: #34d399;
-  --color-accent-light: #064e3b;
-  --color-accent-darker: #10b981;
+  --color-primary: #14b8a6;
+  --color-primary-light: #2dd4bf;
+  --color-primary-lighter: #5eead4;
+  --color-accent: #14b8a6;
+  --color-accent-light: #0f766e;
+  --color-accent-darker: #0d9488;
   
   --color-bg-primary: #0f172a;
   --color-bg-secondary: #1e293b;
@@ -65,13 +65,13 @@
   
   --color-border: #334155;
   --color-border-light: #1e293b;
-  --color-border-green: #064e3b;
+  --color-border-teal: #0f766e;
   
   --color-text-primary: #f1f5f9;
   --color-text-secondary: #cbd5e1;
   --color-text-tertiary: #64748b;
   
-  --color-success: #34d399;
+  --color-success: #10b981;
   --color-success-light: #064e3b;
   --color-warning: #fbbf24;
   --color-warning-light: #78350f;
@@ -84,7 +84,7 @@
   --shadow: 0 1px 3px 0 rgb(0, 0, 0, 0.4), 0 1px 2px -1px rgb(0, 0, 0, 0.4);
   --shadow-md: 0 4px 6px -1px rgb(0, 0, 0, 0.4), 0 2px 4px -2px rgb(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 15px -3px rgb(0, 0, 0, 0.4), 0 4px 6px -4px rgb(0, 0, 0, 0.4);
-  --shadow-green: 0 10px 25px -3px rgb(15, 127, 111, 0.3);
+  --shadow-teal: 0 10px 25px -3px rgb(13, 148, 136, 0.3);
 }
 
 /* Base */
@@ -151,10 +151,10 @@ body {
 }
 .nav-active svg, .nav-active span { color: var(--color-accent); }
 
-/* Gradient backgrounds - Professional Green */
-.gradient-primary { background: linear-gradient(135deg, #0d5f4f 0%, #059669 100%); }
-.gradient-primary-dark { background: linear-gradient(135deg, #0f7f6f 0%, #14a085 100%); }
-.gradient-secondary { background: linear-gradient(135deg, #059669 0%, #34d399 100%); }
+/* Gradient backgrounds - BOB Pharmacy inspired Teal */
+.gradient-primary { background: linear-gradient(135deg, #0d9488 0%, #0d9488 100%); }
+.gradient-primary-dark { background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%); }
+.gradient-secondary { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
 
 /* Modern buttons */
 .btn-primary {
@@ -166,11 +166,11 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.2);
 }
 .btn-primary:hover {
   background: var(--color-accent-darker);
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
   transform: translateY(-2px);
 }
 .btn-primary:active {

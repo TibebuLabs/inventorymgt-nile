@@ -91,7 +91,7 @@ const NavItemEl = ({ item, active, onClose }: { item: NavItem; active: string; o
       <button
         onClick={() => setOpen(o => !o)}
         className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
-          ${isActiveParent ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400" : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white"}`}
+          ${isActiveParent ? "bg-teal-600/30 dark:bg-teal-600/30 text-white dark:text-teal-100" : "text-teal-100 dark:text-teal-200 hover:bg-teal-700 dark:hover:bg-teal-700 hover:text-white dark:hover:text-white"}`}
       >
         <span className="flex items-center gap-3">
           <span className="text-base">{item.icon}</span>{item.label}
@@ -105,8 +105,8 @@ const NavItemEl = ({ item, active, onClose }: { item: NavItem; active: string; o
             <Link to={c.to} onClick={onClose}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all
                 ${active === c.to.split("/").pop()
-                  ? "bg-blue-600 text-white font-medium shadow-sm shadow-blue-200"
-                  : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white"}`}>
+                  ? "bg-teal-600 text-white font-medium shadow-sm shadow-teal-900/30"
+                  : "text-teal-100 dark:text-teal-200 hover:bg-teal-700 dark:hover:bg-teal-700 hover:text-white dark:hover:text-white"}`}>
               <span className="text-xs">{c.icon}</span>{c.label}
             </Link>
           </li>
@@ -122,8 +122,8 @@ const NavItemEl = ({ item, active, onClose }: { item: NavItem; active: string; o
       <Link to={item.to!} onClick={onClose}
         className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all
           ${isActive
-            ? "bg-blue-600 text-white shadow-sm shadow-blue-200"
-            : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white"}`}>
+            ? "bg-teal-600 text-white shadow-sm shadow-teal-900/30"
+            : "text-teal-100 dark:text-teal-200 hover:bg-teal-700 dark:hover:bg-teal-700 hover:text-white dark:hover:text-white"}`}>
         <span className="text-base">{item.icon}</span>{item.label}
       </Link>
     </li>
@@ -176,44 +176,44 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
       )}
 
       {/* ══════════════════════ SIDEBAR ════════════════════════════ */}
-      <aside className={`fixed top-0 left-0 h-full z-40 w-64 bg-white dark:bg-slate-800 border-r border-slate-100 dark:border-slate-700
-        flex flex-col transition-transform duration-300 ease-in-out shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50
+      <aside className={`fixed top-0 left-0 h-full z-40 w-64 bg-teal-800 dark:bg-teal-900 border-r border-teal-700 dark:border-teal-800
+        flex flex-col transition-transform duration-300 ease-in-out shadow-xl shadow-teal-900/50 dark:shadow-teal-900/50
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:static lg:z-auto lg:shadow-none`}>
 
         {/* Brand */}
-        <div className="flex items-center justify-between px-5 h-16 border-b border-slate-100 dark:border-slate-700 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 h-16 border-b border-teal-700 dark:border-teal-800 flex-shrink-0 bg-teal-700 dark:bg-teal-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <div className="w-9 h-9 bg-white/20 backdrop-blur-xl rounded-xl flex items-center justify-center shadow-lg shadow-teal-900/30 border border-white/30">
               <FaBoxes className="text-white text-sm" />
             </div>
             <div>
-              <p className="font-bold text-slate-900 dark:text-white text-sm leading-none">Nile Insurance</p>
-              <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Store Management</p>
+              <p className="font-bold text-white text-sm leading-none">Nile Insurance</p>
+              <p className="text-teal-100 text-xs mt-0.5">Store System</p>
             </div>
           </div>
           <button onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition">
+            className="lg:hidden p-1 text-teal-100 dark:text-teal-200 hover:text-white dark:hover:text-white transition">
             <FaTimes />
           </button>
         </div>
 
         {/* User card */}
-        <div className="mx-4 my-3 p-3 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-700/30 rounded-xl border border-slate-200 dark:border-slate-600 flex-shrink-0">
+        <div className="mx-4 my-3 p-3 bg-teal-700 dark:bg-teal-800 rounded-xl border border-teal-600 dark:border-teal-700 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center
-              text-white font-bold text-sm flex-shrink-0 shadow-md shadow-blue-500/20">
+            <div className="w-9 h-9 bg-white/25 backdrop-blur-xl rounded-full flex items-center justify-center
+              text-white font-bold text-sm flex-shrink-0 shadow-md border border-white/20">
               {user?.fullname?.charAt(0)?.toUpperCase() ?? "U"}
             </div>
             <div className="min-w-0">
-              <p className="text-slate-800 dark:text-white text-sm font-semibold truncate">{user?.fullname ?? "User"}</p>
-              <p className="text-slate-500 dark:text-slate-400 text-xs truncate">{roleLabels[role]}</p>
+              <p className="text-white text-sm font-semibold truncate">{user?.fullname ?? "User"}</p>
+              <p className="text-teal-100 text-xs truncate">{roleLabels[role]}</p>
             </div>
           </div>
         </div>
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-3 py-1">
-          <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-3 mb-2">Menu</p>
+          <p className="text-xs font-semibold text-teal-100 uppercase tracking-wider px-3 mb-2">Menu</p>
           <ul className="space-y-0.5">
             {navItems.map(item => (
               <NavItemEl key={item.label} item={item} active={active} onClose={() => setSidebarOpen(false)} />
@@ -222,10 +222,10 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
         </nav>
 
         {/* Sign out */}
-        <div className="p-3 border-t border-slate-100 dark:border-slate-700 flex-shrink-0">
+        <div className="p-3 border-t border-teal-700 dark:border-teal-800 flex-shrink-0">
           <button onClick={logout}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-              text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all group">
+              text-teal-100 dark:text-teal-200 hover:bg-red-600/20 dark:hover:bg-red-900/20 hover:text-red-500 dark:hover:text-red-400 transition-all group">
             <FaSignOutAlt className="text-base group-hover:text-red-500" />
             Sign Out
           </button>
@@ -250,7 +250,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
             <FaSearch className="absolute left-3 text-slate-400 dark:text-slate-500 text-xs" />
             <input type="text" placeholder="Search..."
               className="w-full pl-8 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-700 focus:border-transparent
+                focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white dark:focus:bg-slate-700 focus:border-transparent
                 placeholder-slate-400 dark:placeholder-slate-500 text-slate-700 dark:text-slate-300 transition" />
           </div>
 
@@ -281,7 +281,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
                   <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
                     <h3 className="font-semibold text-slate-800 dark:text-white text-sm">Notifications</h3>
                     {unreadCount > 0 && (
-                      <button onClick={markAllAsRead} className="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                      <button onClick={markAllAsRead} className="text-xs text-teal-600 dark:text-teal-400 font-medium hover:underline">
                         Mark all read
                       </button>
                     )}
@@ -300,10 +300,10 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
                             if (!n.read) markAsRead(n.id);
                           }}
                           className={`flex items-start gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition
-                            ${!n.read ? "bg-blue-50/50 dark:bg-blue-900/10" : ""}`}
+                            ${!n.read ? "bg-teal-50/50 dark:bg-teal-900/10" : ""}`}
                         >
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5
-                            ${n.grn_id ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"}`}>
+                            ${n.grn_id ? "bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400" : "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"}`}>
                             {n.grn_id ? <FaBoxOpen /> : <FaFileAlt />}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -315,7 +315,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
                             </p>
                           </div>
                           {!n.read && (
-                            <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2" />
+                            <div className="w-2 h-2 bg-teal-500 rounded-full flex-shrink-0 mt-2" />
                           )}
                         </li>
                       ))
@@ -345,8 +345,8 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
             <div className="relative" ref={accountRef}>
               <button onClick={() => { setAccountOpen(o => !o); setNotifOpen(false); }}
                 className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-                <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center
-                  text-white text-xs font-bold shadow-sm shadow-blue-200">
+                <div className="w-7 h-7 bg-teal-600 rounded-full flex items-center justify-center
+                  text-white text-xs font-bold shadow-sm shadow-teal-200">
                   {user?.fullname?.charAt(0)?.toUpperCase() ?? "U"}
                 </div>
                 <div className="hidden sm:block text-left">
@@ -364,7 +364,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role: roleProp }) => {
                   <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700">
                     <p className="text-sm font-semibold text-slate-800 dark:text-white truncate">{user?.fullname}</p>
                     <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{user?.email}</p>
-                    <span className="inline-block mt-1.5 px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400
+                    <span className="inline-block mt-1.5 px-2 py-0.5 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400
                       text-xs rounded-full font-medium">{roleLabels[role]}</span>
                   </div>
                   <div className="p-1">

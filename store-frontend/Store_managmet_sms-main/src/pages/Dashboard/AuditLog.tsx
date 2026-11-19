@@ -201,7 +201,7 @@ const AuditLog = () => {
             {activeFilters > 0 && (
               <button
                 onClick={resetFilters}
-                className="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                className="text-xs font-semibold text-teal-600 hover:underline dark:text-teal-400"
               >
                 Clear all
               </button>
@@ -326,7 +326,7 @@ const AuditLog = () => {
                       <Td>
                         <button
                           onClick={() => setSelected(entry)}
-                          className="text-left text-sm text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+                          className="text-left text-sm text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400"
                         >
                           {entry.description}
                         </button>

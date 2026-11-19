@@ -5,7 +5,7 @@ import { Button, Card } from "../../components/ui";
 const NotFound = () => (
   <div className="flex min-h-[60vh] items-center justify-center">
     <Card className="max-w-md text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-2xl text-blue-600 dark:bg-blue-500/15 dark:text-blue-400">
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-50 text-2xl text-teal-600 dark:bg-teal-500/15 dark:text-teal-400">
         <FaCompass />
       </div>
       <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-900 dark:text-white">

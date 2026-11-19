@@ -221,7 +221,7 @@ const Vendors = () => {
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
             Goods received
           </p>
-          <p className="mt-1 text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <p className="mt-1 text-2xl font-bold text-teal-600 dark:text-teal-400">
             {stats.linked}
           </p>
         </Card>
@@ -438,7 +438,7 @@ const Vendors = () => {
                 onChange={(event) =>
                   setForm((f) => ({ ...f, is_active: event.target.checked }))
                 }
-                className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
               />
               <span className="text-slate-700 dark:text-slate-300">
                 Active — available for selection on new GRNs
